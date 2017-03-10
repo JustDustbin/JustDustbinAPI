@@ -86,10 +86,10 @@ test:
 production:
   <<: *default
   url:  <%= ENV["DATABASE_URL"] %>
-  #database: <%= ENV['JD_DATABASE'] %>
-  #username: <%= ENV['JD_DATABASE_USERNAME'] %>
-  #password: <%= ENV['JD_DATABASE_PASSWORD'] %>
-  #host: <%= ENV['JD_DATABASE_HOST'] %>
-  #port: 5432
+  database: <%= ENV['JD_DATABASE'] %>
+  username: <%= ENV['JD_DATABASE_USERNAME'] %>
+  password: <%= ENV['JD_DATABASE_PASSWORD'] %>
+  host: <%= ENV['JD_DATABASE_HOST'] %>
+  port: 5432
   #username: efervkuqciwccj
   #password:  G5jcY2sEYtHgjU07urgLDefzV5
