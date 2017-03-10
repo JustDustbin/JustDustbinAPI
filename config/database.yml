@@ -19,7 +19,7 @@ default: &default
   encoding: unicode
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  pool: <%= ENV["DB_POOL"] || ENV['RAILS_MAX_THREADS'] || 5 %>
   timeout: 5000
 
 development:
@@ -85,10 +85,11 @@ test:
 #
 production:
   <<: *default
-  database: <%= ENV['JD_DATABASE'] %>
-  username: <%= ENV['JD_DATABASE_USERNAME'] %>
-  password: <%= ENV['JD_DATABASE_PASSWORD'] %>
-  host: <%= ENV['JD_DATABASE_HOST'] %>
-  port: 5432
+  url:  <%= ENV["DATABASE_URL"] %>
+  #database: <%= ENV['JD_DATABASE'] %>
+  #username: <%= ENV['JD_DATABASE_USERNAME'] %>
+  #password: <%= ENV['JD_DATABASE_PASSWORD'] %>
+  #host: <%= ENV['JD_DATABASE_HOST'] %>
+  #port: 5432
   #username: efervkuqciwccj
   #password:  G5jcY2sEYtHgjU07urgLDefzV5
