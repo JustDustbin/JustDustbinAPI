@@ -11,12 +11,9 @@ module Api
 
   	  def index
         @dustbins = Dustbin.all
-
         if @dustbins.count == 0
           render json: { errors: ["Empty."] }, status: 400 and return
         end
-
-  	  	@dustbins = @dustbins.offset((@page_no - 1) * ITEMS_PER_PAGE).limit(ITEMS_PER_PAGE)
         render json: { :data => @dustbins }
   	  end
 
