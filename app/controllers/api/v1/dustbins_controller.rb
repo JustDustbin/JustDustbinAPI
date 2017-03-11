@@ -2,7 +2,7 @@ module Api
   module V1
   	class DustbinsController < ApplicationController
       #before_action :is_developer_registered, only: [:create, :update, :destroy]
-      before_action :set_dustbin, only: [:show, :update, :destroy, :install, :uninstall, :update_status]
+      before_action :set_dustbin, only: [:show, :update, :destroy, :install, :uninstall]
       before_action :set_dustbin_by_uid, only: [:update_status]
 
       #before_action :require_developer, only: [:update, :destroy]
@@ -82,7 +82,7 @@ module Api
       end
 
       def set_dustbin_by_uid
-        @dustbin = Dustbin.where(unique_id: params[:unique_id]).first #Any response when wrong id
+        @dustbin = Dustbin.where(unique_id: 1234).first #Any response when wrong id
         if @dustbin == nil
           render status: :not_found, json: { errors: ["Not Found."] }
         end
@@ -101,7 +101,7 @@ module Api
       #end
 
       def dustbin_params
-        params.require(:dustbin).permit(:unique_id, :name, :gps_longitude, :gps_latitude, :worker, :city, :support_number, :status)
+        params.require(:dustbin).permit(:name, :gps_longitude, :gps_latitude, :worker, :city, :support_number, :status, :unique_id)
       end
 
   	end
