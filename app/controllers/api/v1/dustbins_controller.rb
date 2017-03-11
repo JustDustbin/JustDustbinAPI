@@ -10,25 +10,14 @@ module Api
       ITEMS_PER_PAGE = 10
 
   	  def index
-        if params[:page]
-          @page_no = params[:page].to_i
-        else
-          @page_no = 1
-        end
-
         @dustbins = Dustbin.all
 
         if @dustbins.count == 0
           render json: { errors: ["Empty."] }, status: 400 and return
         end
 
-        if !@page_no.to_i.between?(1,((@dustbins.count.to_f/ITEMS_PER_PAGE).ceil))
-          render json: { errors: ["Invalid page number."] }, status: 400 and return
-        end
-
-        @last_page_value = @page_no == (@dustbins.count.to_f/ITEMS_PER_PAGE).ceil
   	  	@dustbins = @dustbins.offset((@page_no - 1) * ITEMS_PER_PAGE).limit(ITEMS_PER_PAGE)
-        render json: { :last => @last_page_value, :data => @dustbins }
+        render json: { :data => @dustbins }
   	  end
 
   	  def show
