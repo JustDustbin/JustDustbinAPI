@@ -3,6 +3,8 @@ module Api
   	class DustbinsController < ApplicationController
       #before_action :is_developer_registered, only: [:create, :update, :destroy]
       before_action :set_dustbin, only: [:show, :update, :destroy, :install, :uninstall, :update_status]
+      before_action :set_dustbin_by_uid, only: [:update_status]
+
       #before_action :require_developer, only: [:update, :destroy]
 
       ITEMS_PER_PAGE = 10
@@ -79,6 +81,13 @@ module Api
         end
       end
 
+      def set_dustbin_by_uid
+        @dustbin = Dustbin.where(unique_id: params[:unique_id]).first #Any response when wrong id
+        if @dustbin == nil
+          render status: :not_found, json: { errors: ["Not Found."] }
+        end
+      end
+
       #def is_developer_registered
       #  if current_user.is_developer == false
       #    render json: { errors: ["Authorized users only."] }, status: :unauthorized
@@ -92,7 +101,7 @@ module Api
       #end
 
       def dustbin_params
-        params.require(:dustbin).permit(:name, :gps_longitude, :gps_latitude, :worker, :city, :support_number, :status)
+        params.require(:dustbin).permit(:unique_id, :name, :gps_longitude, :gps_latitude, :worker, :city, :support_number, :status)
       end
 
   	end
