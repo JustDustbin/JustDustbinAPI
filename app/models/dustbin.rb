@@ -7,5 +7,5 @@ class Dustbin < ActiveRecord::Base
   validates :status, numericality: { only_integer: true, less_than_or_equal_to: 100, greater_than_or_equal_to: 0 }, presence: true
   validates :gps_latitude, presence: true
   validates :gps_longitude, presence: true
-  validates :unique_id, presence: true, numericality: true
+  validates :unique_id, presence: true, numericality: true, uniqueness: true
 end
